@@ -28,7 +28,7 @@
           <div class="font-bold text-xl text-[#72be43] mb-2">
             {{ t?.showtime?.film?.title }}
           </div>
-          <span v-if="t?.showtime?.room?.seats?.find(s => s.name === t.seat)?.type === 'VIP'" class="bg-[rgb(241,75,75)] text-white p-1 text-xs rounded-md">
+          <span v-if="t?.showtime?.room?.seats?.find((s:any) => s.name === t.seat)?.type === 'VIP'" class="bg-[rgb(241,75,75)] text-white p-1 text-xs rounded-md">
             VIP
           </span>
           <span v-else class="bg-[rgb(45,194,117)] text-white p-1 text-xs rounded-md">
@@ -37,7 +37,7 @@
           <div class="flex justify-between items-center mt-5">
             <div>Ghế: {{ t?.seat }}</div>
             <div class="text-[#72be43] text-lg font-medium">
-              {{ t?.showtime?.room?.seats?.find(s => s.name === t.seat)?.type === 'VIP' ? t?.showtime?.vipPrice?.toLocaleString('de-DE') : t?.showtime?.regularPrice?.toLocaleString('de-DE') }} VNĐ
+              {{ t?.showtime?.room?.seats?.find((s:any) => s.name === t.seat)?.type === 'VIP' ? t?.showtime?.vipPrice?.toLocaleString('de-DE') : t?.showtime?.regularPrice?.toLocaleString('de-DE') }} VNĐ
             </div>
           </div>
         </div>

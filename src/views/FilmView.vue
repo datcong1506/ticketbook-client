@@ -59,14 +59,14 @@
       <div v-else>
         <div v-for="s, index in scheduler" :key="s._id" class="flex justify-between" :class="{ 'border-b-black': index !== scheduler.length - 1 }">
           <div class="flex flex-col px-4 py-2">
-            <div class="text-[#fff]">
-              {{ s.room.name }} - {{ s.room.cinema.name }} - {{ s.room.cinema.location }}
+            <div class="text-[#fff] flex items-center">
+              <Cinema width="40" height="40" stroke="white" class="mr-1" />{{ s.room.name }} - {{ s.room.cinema.name }} - {{ s.room.cinema.location }}
             </div>
             <div class="text-[#fff]">
               {{ dayjs(s.time).format('HH:mm DD/MM/YYYY') }}
             </div>
             <div class="text-[rgb(45,194,117)] text-sm mt-1">
-              Giá chỉ từ {{ s.regularPrice }}VNĐ
+              Giá chỉ từ {{ s.regularPrice?.toLocaleString('de-DE') }}VNĐ
             </div>
           </div>
           <div class="p-3">
@@ -83,6 +83,7 @@
 <script setup lang="ts">
 import type { Dayjs } from 'dayjs'
 import filmApi from '@/apis/film'
+import Cinema from '@/assets/cinema.svg?component'
 import useAuth from '@/hooks/useAuth'
 import useStateApp from '@/hooks/useStateApp'
 import dayjs from 'dayjs'

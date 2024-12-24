@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-[76px] p-4 bg-[rgb(45,194,117)] flex justify-between">
     <div v-if="!stateApp.headerBack" class="flex items-center text-2xl font-bold text-white">
-      ticketbook
+      <img src="@/assets/avt.png" alt="" class="h-full">
     </div>
     <div v-else class="flex items-center gap-3">
       <div class="h-[40px] w-[40px] flex justify-center items-center rounded-full border-[rgba(235,235,240,0.565)] border" @click="router.push('/home')">

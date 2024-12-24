@@ -14,7 +14,7 @@
               <span class="font-bold">Diễn viên:</span> <span>{{ `${(film.actors ?? []).join(', ')}...` }}</span>
             </div>
             <div class="text-sm text-[#fff] mt-1">
-              <span class="font-bold">Thể loại:</span> <span>{{ film.genre }}</span>
+              <span class="font-bold">Thể loại:</span> <span>{{ Array.isArray(film.genre) ? film.genre.join(', ') : film.genre }}</span>
             </div>
             <div class="text-sm text-[#fff] mt-1">
               <span class="font-bold">Thời lượng:</span> <span>{{ Math.round(film.duration / 60) }} phút</span>

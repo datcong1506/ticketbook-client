@@ -14,9 +14,9 @@ const filmApi = {
     const url = '/guest/film/byCategory'
     return apiClient.post(url, { cate })
   },
-  getScheduler: <Res>(idFilm: string, time: string): Promise<TDataAxios<Res>> => {
+  getScheduler: <Res>(idFilm: string, time: string, location: string): Promise<TDataAxios<Res>> => {
     const url = '/guest/showtime/film'
-    return apiClient.post(url, { idFilm, time })
+    return apiClient.post(url, { idFilm, time, location })
   },
 }
 

@@ -41,19 +41,37 @@
         {{ film.shortDescription }}
       </div>
       <div class="pb-4 flex justify-center">
-        <iframe :src="film.trailer" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
+        <!-- <iframe :src="film.trailer" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen /> -->
       </div>
     </div>
   </div>
   <div class="w-full p-[16px]">
     <div class="bg-[rgb(39,39,42)] rounded-md">
-      <div class="text-lg font-bold text-[#fff] px-4 py-2 flex justify-between border-b border-solid border-b-black">
+      <div class="text-lg font-bold text-[#fff] px-4 py-2 justify-between border-b border-solid border-b-black">
         Thông tin phòng vé
-        <a-date-picker v-model:value="dateSearch" :allow-clear="false" :disabled-date="disabledDate" />
+        <div class="flex gap-1">
+          <div class="w-1/2">
+            <a-date-picker v-model:value="dateSearch" class="w-full" :allow-clear="false" :disabled-date="disabledDate" />
+          </div>
+          <div class="w-1/2">
+            <a-select
+              v-model:value="locationSearch"
+              class="w-full"
+              placeholder="Select location cinema"
+              allow-clear
+            >
+              <template v-for="c of locationList" :key="c">
+                <a-select-option :value="c">
+                  {{ c }}
+                </a-select-option>
+              </template>
+            </a-select>
+          </div>
+        </div>
       </div>
       <div v-if="scheduler.length === 0">
         <div class="text-[#fff] text-center py-4">
-          Không có lịch chiếu cho ngày này
+          Không có lịch chiếu cho khu vực này trong ngày này
         </div>
       </div>
       <div v-else>
@@ -90,6 +108,7 @@ import dayjs from 'dayjs'
 import { onBeforeMount, onBeforeUnmount, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+const locationList = ['Tất cả', 'Hà Nội', 'TP. HCM']
 const route = useRoute()
 const router = useRouter()
 const { hiddenBottomNavigate, showBottomNavigate, stateApp } = useStateApp()
@@ -97,6 +116,7 @@ const { isAuth } = useAuth()
 
 const film = ref<any>({})
 const dateSearch = ref(dayjs())
+const locationSearch = ref('Tất cả')
 const scheduler = ref<any[]>([])
 
 onBeforeMount(async () => {
@@ -105,8 +125,8 @@ onBeforeMount(async () => {
   await getFilm()
 })
 
-watch(() => dateSearch.value.format('YYYY-MM-DD'), async (value) => {
-  await getScheduler(value)
+watch(() => [dateSearch.value.format('YYYY-MM-DD'), locationSearch.value], async ([value, location]) => {
+  await getScheduler(value as string, location as string)
 }, { immediate: true })
 
 function disabledDate(current: Dayjs) {
@@ -122,9 +142,9 @@ async function getFilm() {
   }
 }
 
-async function getScheduler(date: string) {
+async function getScheduler(date: string, location: string) {
   try {
-    const res = await filmApi.getScheduler<any[]>(route.params.id as string, date)
+    const res = await filmApi.getScheduler<any[]>(route.params.id as string, date, location)
     scheduler.value = res.data
   } catch (error) {
     scheduler.value = []

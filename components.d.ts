@@ -18,6 +18,8 @@ declare module 'vue' {
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     AModal: typeof import('ant-design-vue/es')['Modal']
+    ASelect: typeof import('ant-design-vue/es')['Select']
+    ASelectOption: typeof import('ant-design-vue/es')['SelectOption']
     ASpin: typeof import('ant-design-vue/es')['Spin']
     CategoryComponent: typeof import('./src/components/CategoryComponent.vue')['default']
     ConfirmBuyTicket: typeof import('./src/components/ConfirmBuyTicket.vue')['default']

@@ -34,6 +34,11 @@ const userApi = {
     const url = '/user/ticket/reject'
     return apiClient.post(url, { id: idTicket })
   },
+  getAllSchedule: <Res>(): Promise<TDataAxios<Res>> => {
+    const url = '/guest/showtime/getAll'
+    return apiClient.get(url)
+  },
+
 }
 
 export default userApi

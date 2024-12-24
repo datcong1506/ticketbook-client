@@ -14,7 +14,7 @@
                 {{ f.title }}
               </div>
               <div class="text-[#fff] text-xs mt-1">
-                <span class="font-bold">Thể loại:</span> <span>{{Array.isArray(f.genre) ? f.genre.join(', ') : g.genre}}</span>
+                <span class="font-bold">Thể loại:</span> <span>{{Array.isArray(f.genre) ? f.genre.join(', ') : f.genre}}</span>
               </div>
               <div class="text-[#fff] text-xs">
                 <span class="font-bold">Thời lượng:</span> <span>{{ Math.round(f.duration / 60) }} phút</span>
